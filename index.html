@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pendaftaran Lomba HKN Ke-62</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Audio Latar -->
+    <audio id="bg-music" src="subway.mp3" loop></audio>
+
+    <!-- Pop-up Notifikasi Berhasil -->
+    <div class="overlay" id="overlay"></div>
+    <div class="success-modal" id="successModal">
+        <div class="modal-icon">🩺✨</div>
+        <h3 class="modal-title">Pendaftaran Berhasil!</h3>
+        <p class="modal-desc">Terima kasih, data Anda telah tersimpan ke sistem Hari Kesehatan Nasional Ke-62.</p>
+        <button class="btn-close" onclick="tutupNotif()">Tutup Pendaftaran</button>
+    </div>
+
+    <div class="container">
+        <header>
+            <div class="header-logo">🏥</div>
+            <h2>Form Pendaftaran Lomba</h2>
+            <h3>Hari Kesehatan Nasional Ke-62</h3>
+            <p>Balai Kekarantinaan Kesehatan Kelas I Banjarmasin</p>
+        </header>
+
+        <form id="pendaftaranForm">
+            <!-- Nama Peserta -->
+            <div class="form-group question-box">
+                <label for="nama" class="section-title">Nama Peserta <span class="required">*</span></label>
+                <input type="text" id="nama" name="nama" required placeholder="Ketik nama lengkap Anda di sini...">
+            </div>
+
+            <!-- Asal Timker -->
+            <div class="form-group question-box">
+                <label class="section-title">Asal Timker <span class="required">*</span></label>
+                <div class="modern-options">
+                    <label class="custom-option"><input type="radio" name="timker" value="Timker 1"><span class="opsi-teks">Timker 1</span></label>
+                    <label class="custom-option"><input type="radio" name="timker" value="Timker 2"><span class="opsi-teks">Timker 2</span></label>
+                    <label class="custom-option"><input type="radio" name="timker" value="Timker 3"><span class="opsi-teks">Timker 3</span></label>
+                    <label class="custom-option"><input type="radio" name="timker" value="Timker 4"><span class="opsi-teks">Timker 4</span></label>
+                    <label class="custom-option"><input type="radio" name="timker" value="Timker 5"><span class="opsi-teks">Timker 5</span></label>
+                    <label class="custom-option"><input type="radio" name="timker" value="Adum"><span class="opsi-teks">Adum</span></label>
+                </div>
+            </div>
+
+           <!-- Lomba Yang Diikuti -->
+<div class="form-group question-box">
+    <label class="section-title">Lomba Yang Diikuti (Bisa pilih lebih dari satu) <span class="required">*</span></label>
+    <div class="modern-options">
+        <label class="custom-option">
+            <input type="checkbox" name="lomba" value="1. Lomba Video Bakisah Tema Kesehatan">
+            <span class="opsi-teks">🎬 1. Lomba Video Bakisah Tema Kesehatan</span>
+        </label>
+        
+        <label class="custom-option">
+            <input type="checkbox" name="lomba" value="2. Lomba Poster Tema Kesehatan HKN">
+            <span class="opsi-teks">🖼️ 2. Lomba Poster Tema Kesehatan HKN</span>
+        </label>
+        
+        <label class="custom-option">
+            <input type="checkbox" name="lomba" value="3. Lomba Estafet Melukis">
+            <span class="opsi-teks">🎨 3. Lomba Estafet Melukis</span>
+        </label>
+        
+        <label class="custom-option">
+            <input type="checkbox" name="lomba" value="4. Lomba Bernyanyi">
+            <span class="opsi-teks">🎤 4. Lomba Bernyanyi</span>
+        </label>
+        
+        <label class="custom-option">
+            <input type="checkbox" name="lomba" value="5. Lomba Menepuk Balon Sambil Memasang Rompi">
+            <span class="opsi-teks">🎈 5. Lomba Menepuk Balon Sambil Memasang Rompi</span>
+        </label>
+        
+        <label class="custom-option">
+            <input type="checkbox" name="lomba" value="6. Lomba Memasak Menu Sehat">
+            <span class="opsi-teks">🥗 6. Lomba Memasak Menu Sehat</span>
+        </label>
+    </div>
+</div>
+            <div class="submit-area">
+                <button type="submit" id="submitBtn">Kirim Pendaftaran 🚀</button>
+            </div>
+        </form>
+    </div>
+
+    <footer>
+        <p class="gold-shimmer">Created by Muliadi</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
