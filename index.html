@@ -4,14 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pendaftaran Lomba HKN Ke-62</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=20261112">
 </head>
 <body>
     <!-- Audio Latar -->
     <audio id="bg-music" src="subway.mp3" loop></audio>
 
-    <!-- Pop-up Notifikasi Berhasil -->
+    <!-- Layar Gelap (Blur) untuk Pop-up -->
     <div class="overlay" id="overlay"></div>
+
+    <!-- Pop-up Animasi Loading (Tetap Aktif Saat Mengirim Data) -->
+    <div class="loading-modal" id="loadingModal">
+        <div class="spinner"></div>
+        <h3 class="modal-title" style="margin-bottom: 0;">Mengirim Data...</h3>
+        <p class="modal-desc" style="margin-bottom: 0;">Mohon tunggu sebentar ⏳</p>
+    </div>
+
+    <!-- Pop-up Notifikasi Berhasil -->
     <div class="success-modal" id="successModal">
         <div class="modal-icon">🩺✨</div>
         <h3 class="modal-title">Pendaftaran Berhasil!</h3>
@@ -21,7 +30,17 @@
 
     <div class="container">
         <header>
-            <div class="header-logo">🏥</div>
+            <div class="brand-mark" aria-label="Logo Hari Kesehatan Nasional">
+                <svg viewBox="0 0 100 100" role="img" aria-hidden="true">
+                    <defs><linearGradient id="brandGradient" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0%" stop-color="#18c6b0"/><stop offset="100%" stop-color="#00796b"/>
+                    </linearGradient></defs>
+                    <path d="M50 5 86 19v27c0 23-14 39-36 49C28 85 14 69 14 46V19L50 5Z" fill="url(#brandGradient)"/>
+                    <path d="M45 28h10v13h13v10H55v13H45V51H32V41h13V28Z" fill="#fff"/>
+                    <path d="M24 72h13l7-10 8 15 8-12 5 7h11" fill="none" stroke="#baf8e9" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <div class="header-kicker">SEHAT UNTUK SEMUA</div>
             <h2>Form Pendaftaran Lomba</h2>
             <h3>Hari Kesehatan Nasional Ke-62</h3>
             <p>Balai Kekarantinaan Kesehatan Kelas I Banjarmasin</p>
@@ -47,41 +66,37 @@
                 </div>
             </div>
 
-           <!-- Lomba Yang Diikuti -->
-<div class="form-group question-box">
-    <label class="section-title">Lomba Yang Diikuti (Bisa pilih lebih dari satu) <span class="required">*</span></label>
-    <div class="modern-options">
-        <label class="custom-option">
-            <input type="checkbox" name="lomba" value="1. Lomba Video Bakisah Tema Kesehatan">
-            <span class="opsi-teks">🎬 1. Lomba Video Bakisah Tema Kesehatan</span>
-        </label>
-        
-        <label class="custom-option">
-            <input type="checkbox" name="lomba" value="2. Lomba Poster Tema Kesehatan HKN">
-            <span class="opsi-teks">🖼️ 2. Lomba Poster Tema Kesehatan HKN</span>
-        </label>
-        
-        <label class="custom-option">
-            <input type="checkbox" name="lomba" value="3. Lomba Estafet Melukis">
-            <span class="opsi-teks">🎨 3. Lomba Estafet Melukis</span>
-        </label>
-        
-        <label class="custom-option">
-            <input type="checkbox" name="lomba" value="4. Lomba Bernyanyi">
-            <span class="opsi-teks">🎤 4. Lomba Bernyanyi</span>
-        </label>
-        
-        <label class="custom-option">
-            <input type="checkbox" name="lomba" value="5. Lomba Menepuk Balon Sambil Memasang Rompi">
-            <span class="opsi-teks">🎈 5. Lomba Menepuk Balon Sambil Memasang Rompi</span>
-        </label>
-        
-        <label class="custom-option">
-            <input type="checkbox" name="lomba" value="6. Lomba Memasak Menu Sehat">
-            <span class="opsi-teks">🥗 6. Lomba Memasak Menu Sehat</span>
-        </label>
-    </div>
-</div>
+            <!-- Lomba Yang Diikuti (Tulisan "(Bisa pilih lebih dari satu)" sudah dihapus) -->
+            <div class="form-group question-box">
+                <label class="section-title">Lomba Yang Diikuti <span class="required">*</span></label>
+                <div class="modern-options">
+                    <label class="custom-option">
+                        <input type="checkbox" name="lomba" value="1. Lomba Video Bakisah Tema Kesehatan">
+                        <span class="opsi-teks">🎬 1. Lomba Video Bakisah Tema Kesehatan</span>
+                    </label>
+                    
+                    <label class="custom-option">
+                        <input type="checkbox" name="lomba" value="2. Lomba Poster Tema Kesehatan HKN">
+                        <span class="opsi-teks">🖼️ 2. Lomba Poster Tema Kesehatan HKN</span>
+                    </label>
+                    
+                    <label class="custom-option">
+                        <input type="checkbox" name="lomba" value="3. Lomba Estafet Melukis">
+                        <span class="opsi-teks">🎨 3. Lomba Estafet Melukis</span>
+                    </label>
+                    
+                    <label class="custom-option">
+                        <input type="checkbox" name="lomba" value="4. Lomba Bernyanyi">
+                        <span class="opsi-teks">🎤 4. Lomba Bernyanyi</span>
+                    </label>
+                    
+                    <label class="custom-option">
+                        <input type="checkbox" name="lomba" value="5. Lomba Menepuk Balon Sambil Memasang Rompi">
+                        <span class="opsi-teks">🎈 5. Lomba Menepuk Balon Sambil Memasang Rompi</span>
+                    </label>
+                </div>
+            </div>
+            
             <div class="submit-area">
                 <button type="submit" id="submitBtn">Kirim Pendaftaran 🚀</button>
             </div>
