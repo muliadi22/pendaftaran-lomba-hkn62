@@ -1,5 +1,7 @@
-// Ganti dengan URL Aplikasi Web Google Apps Script Anda yang berakhiran /exec
-const scriptURL = 'https://script.google.com/macros/s/AKfycbz1CyX3sml6cMlzaIhvog4Ti_Pd2Yz1hoPciPsOd5u5tcveUU2Hn6jH1Df_ayPu3JPEjA/exec'; 
+
+// URL Google Apps Script ASLI
+const scriptURL = 'https://script.google.com/macros/s/AKfycbz1CyX3sml6cMlzaIhvog4Ti_Pd2Yz1hoPciPsOd5u5tcveUU2Hn6jH1Df_ayPu3JPEjA/exec';
+
 const form = document.forms['pendaftaranForm'];
 const btnSubmit = document.getElementById('submitBtn');
 
@@ -7,36 +9,52 @@ const modalSukses = document.getElementById('successModal');
 const modalLoading = document.getElementById('loadingModal');
 const overlay = document.getElementById('overlay');
 
-// Musik Auto-Play dengan interaksi pertama
+// MUSIK LATAR
 function putarMusik() {
     const audio = document.getElementById('bg-music');
+
     if (audio.paused) {
-        audio.play().catch(error => console.log("Audio diblokir browser"));
+        audio.play().catch(error => {
+            console.log("Audio diblokir browser");
+        });
     }
 }
+
 ['click', 'touchstart', 'keydown'].forEach(event => {
-    document.body.addEventListener(event, putarMusik, { once: true });
+    document.body.addEventListener(event, putarMusik, {
+        once: true
+    });
 });
 
+// TUTUP NOTIFIKASI
 function tutupNotif() {
     modalSukses.classList.remove('show');
     overlay.classList.remove('show');
 }
 
+// PROSES PENDAFTARAN
 form.addEventListener('submit', e => {
+
     e.preventDefault();
-    
-    // Validasi Timker
-    const timkerTerpilih = document.querySelector('input[name="timker"]:checked');
+
+    // VALIDASI ASAL ANGGOTA
+    const timkerTerpilih = document.querySelector(
+        'input[name="timker"]:checked'
+    );
+
     if (!timkerTerpilih) {
-        alert("Silakan pilih Asal Timker terlebih dahulu!");
+        alert("Silakan pilih Asal Anggota terlebih dahulu!");
         return;
     }
 
-    // Validasi Lomba
-    const checkboxLomba = document.querySelectorAll('input[name="lomba"]:checked');
+    // VALIDASI PILIHAN LOMBA
+    const checkboxLomba = document.querySelectorAll(
+        'input[name="lomba"]:checked'
+    );
+
     let lombaTerpilih = [];
-    checkboxLomba.forEach((cb) => {
+
+    checkboxLomba.forEach(cb => {
         lombaTerpilih.push(cb.value);
     });
 
@@ -45,33 +63,69 @@ form.addEventListener('submit', e => {
         return;
     }
 
-    // --- TAMPILKAN MODAL LOADING & BLUR DI TENGAH LAYAR ---
+    // TAMPILKAN LOADING
     overlay.classList.add('show');
     modalLoading.classList.add('show');
+
     btnSubmit.disabled = true;
 
+    // SIAPKAN DATA
     let requestData = new FormData();
-    requestData.append('nama', document.getElementById('nama').value);
-    requestData.append('timker', timkerTerpilih.value);
-    requestData.append('lomba', lombaTerpilih.join(', '));
 
-    // Kirim data ke Google Sheets
-    fetch(scriptURL, { method: 'POST', body: requestData })
-        .then(response => {
-            // --- SEMBUNYIKAN LOADING, TAMPILKAN NOTIFIKASI BERHASIL ---
-            modalLoading.classList.remove('show');
-            modalSukses.classList.add('show');
-            
-            form.reset();
-            btnSubmit.disabled = false;
-        })
-        .catch(error => {
-            console.error('Error!', error.message);
-            // Sembunyikan loading jika terjadi kendala/error
-            modalLoading.classList.remove('show');
-            overlay.classList.remove('show');
-            
-            alert("Terjadi kesalahan sistem saat mengirim pendaftaran.");
-            btnSubmit.disabled = false;
-        });
+    requestData.append(
+        'nama',
+        document.getElementById('nama').value
+    );
+
+    // Nama field tetap timker agar kompatibel
+    // dengan integrasi Google Sheets yang lama.
+    requestData.append(
+        'timker',
+        timkerTerpilih.value
+    );
+
+    requestData.append(
+        'lomba',
+        lombaTerpilih.join(', ')
+    );
+
+    // KIRIM KE GOOGLE SHEETS
+    fetch(scriptURL, {
+        method: 'POST',
+        body: requestData
+    })
+
+    .then(response => {
+
+        // SEMBUNYIKAN LOADING
+        modalLoading.classList.remove('show');
+
+        // TAMPILKAN NOTIFIKASI BERHASIL
+        modalSukses.classList.add('show');
+
+        // RESET FORM
+        form.reset();
+
+        // AKTIFKAN KEMBALI TOMBOL
+        btnSubmit.disabled = false;
+
+    })
+
+    .catch(error => {
+
+        console.error('Error!', error.message);
+
+        // SEMBUNYIKAN LOADING
+        modalLoading.classList.remove('show');
+
+        overlay.classList.remove('show');
+
+        alert(
+            "Terjadi kesalahan sistem saat mengirim pendaftaran."
+        );
+
+        btnSubmit.disabled = false;
+
+    });
+
 });
